@@ -5,7 +5,7 @@ import AuthorBusiness from "../business/AuthorBusiness";
 import AuthorInterface from "../interfaces/AuthorInterface";
 
 export default class AuthorController implements InterfaceController {
-  private response: ApiResponse<AuthorInterface | null> = {
+  private response: ApiResponse<AuthorInterface> = {
     statusCode: 200,
     message: "Request Successful",
   };
@@ -15,12 +15,12 @@ export default class AuthorController implements InterfaceController {
     res: Response
   ): Promise<Response<any, Record<string, any>>> {
     try {
-      let id: number =
-        typeof req.query.id == "number" ? parseInt(req.query.id) : 1;
-      this.response.data = await new AuthorBusiness(req.body).detail(id);
+      this.response.data = await new AuthorBusiness(req.body).detail(
+        parseInt(req.params.id)
+      );
     } catch (error: any) {
-      this.response.statusCode = 500;
-      this.response.message = error;
+      this.response.statusCode = error[0] ? error[0] : 500;
+      this.response.message = error[1] ? error[1] : error;
     }
     return res.status(this.response.statusCode).send(this.response);
   }
@@ -36,8 +36,8 @@ export default class AuthorController implements InterfaceController {
     try {
       responseCreate.data = await new AuthorBusiness(req.body).index();
     } catch (error: any) {
-      responseCreate.statusCode = 500;
-      responseCreate.message = error;
+      responseCreate.statusCode = error[0] ? error[0] : 500;
+      responseCreate.message = error[1] ? error[1] : error;
     }
     return res.status(responseCreate.statusCode).send(responseCreate);
   }
@@ -49,8 +49,8 @@ export default class AuthorController implements InterfaceController {
     try {
       this.response.data = await new AuthorBusiness(req.body).create();
     } catch (error: any) {
-      this.response.statusCode = 500;
-      this.response.message = error;
+      this.response.statusCode = error[0] ? error[0] : 500;
+      this.response.message = error[1] ? error[1] : error;
     }
     return res.status(this.response.statusCode).send(this.response);
   }
@@ -60,12 +60,10 @@ export default class AuthorController implements InterfaceController {
     res: Response
   ): Promise<Response<any, Record<string, any>>> {
     try {
-      let id: number =
-        typeof req.query.id == "number" ? parseInt(req.query.id) : 1;
-      this.response.data = await new AuthorBusiness(req.body).update(id);
+      await new AuthorBusiness(req.body).update(parseInt(req.params.id));
     } catch (error: any) {
-      this.response.statusCode = 500;
-      this.response.message = error;
+      this.response.statusCode = error[0] ? error[0] : 500;
+      this.response.message = error[1] ? error[1] : error;
     }
     return res.status(this.response.statusCode).send(this.response);
   }
@@ -75,12 +73,10 @@ export default class AuthorController implements InterfaceController {
     res: Response
   ): Promise<Response<any, Record<string, any>>> {
     try {
-      let id: number =
-        typeof req.query.id == "number" ? parseInt(req.query.id) : 1;
-      this.response.data = await new AuthorBusiness(req.body).delete(id);
+      await new AuthorBusiness(req.body).delete(parseInt(req.params.id));
     } catch (error: any) {
-      this.response.statusCode = 500;
-      this.response.message = error;
+      this.response.statusCode = error[0] ? error[0] : 500;
+      this.response.message = error[1] ? error[1] : error;
     }
     return res.status(this.response.statusCode).send(this.response);
   }
