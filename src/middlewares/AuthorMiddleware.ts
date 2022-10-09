@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import Joi, { Schema } from "joi";
 import { ApiResponse } from "../interfaces/types";
-import InterfaceMiddleware from "../interfaces/MiddlewareInterface";
 import ValidateHelper from "../helpers/ValidateHelper";
+import MiddlewareInterface from "../interfaces/MiddlewareInterface";
 
-export default class AuthorMiddleware implements InterfaceMiddleware {
+export default class AuthorMiddleware implements MiddlewareInterface {
   createValidation: Schema;
   updateValidation: Schema;
   private response: ApiResponse<any[]> = {
@@ -20,7 +20,7 @@ export default class AuthorMiddleware implements InterfaceMiddleware {
         name: Joi.string()
           .required()
           .regex(this.REGEX_STRING)
-          .label("The field 'nameStudent' is required and only allows letters"),
+          .label("The field 'name' is required and only allows letters"),
         country: Joi.string()
           .required()
           .regex(this.REGEX_STRING)
@@ -28,28 +28,29 @@ export default class AuthorMiddleware implements InterfaceMiddleware {
         birth_date: Joi.string()
           .required()
           .label(
-            "The field 'birth_date' is required and only allow the structure day/month/year (20/04/2000)"
+            "The field 'birth_date' is required and only allows the structure day/month/year (20/04/2000)"
           ),
         death_date: Joi.string()
           .required()
           .label(
-            "The field 'death_date' is required and only allow the structure day/month/year (20/04/2000)"
+            "The field 'death_date' is required and only allows the structure day/month/year (20/04/2000)"
           ),
       })
       .required();
+
     this.updateValidation = Joi.object()
       .keys({
         name: Joi.string()
           .regex(this.REGEX_STRING)
-          .label("The field 'nameStudent' only allows letters"),
+          .label("The field 'name' only allows letters"),
         country: Joi.string()
           .regex(this.REGEX_STRING)
           .label("The field 'country' only allows letters"),
         birth_date: Joi.string().label(
-          "The field 'birth_date' only allow the structure day/month/year (20/04/2000)"
+          "The field 'birth_date' only allows the structure day/month/year (20/04/2000)"
         ),
         death_date: Joi.string().label(
-          "The field 'death_date' only allow the structure day/month/year (20/04/2000)"
+          "The field 'death_date' only allows the structure day/month/year (20/04/2000)"
         ),
       })
       .required();

@@ -3,9 +3,9 @@ import AuthorInterface from "../interfaces/AuthorInterface";
 import BusinessInterface from "../interfaces/BusinessInterface";
 
 export default class AuthorBusiness implements BusinessInterface {
-  private readonly data: AuthorInterface;
+  private readonly data: AuthorInterface | any;
 
-  constructor(data: AuthorInterface) {
+  constructor(data?: AuthorInterface) {
     this.data = data;
   }
 
@@ -35,8 +35,6 @@ export default class AuthorBusiness implements BusinessInterface {
     await this.detail(id);
     const model = await AuthorEntity.update({ id: id }, this.data);
     if (!model.affected || model.affected <= 0) throw false;
-    console.log("PONER ATENCIÓN");
-    console.log(model);
     return true;
   }
 

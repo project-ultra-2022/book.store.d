@@ -1,10 +1,10 @@
 import { ApiResponse } from "../interfaces/types";
 import { Request, Response } from "express";
-import InterfaceController from "../interfaces/ControllerInterface";
 import AuthorBusiness from "../business/AuthorBusiness";
 import AuthorInterface from "../interfaces/AuthorInterface";
+import ControllerInterface from "../interfaces/ControllerInterface";
 
-export default class AuthorController implements InterfaceController {
+export default class AuthorController implements ControllerInterface {
   private response: ApiResponse<AuthorInterface> = {
     statusCode: 200,
     message: "Request Successful",
@@ -15,7 +15,7 @@ export default class AuthorController implements InterfaceController {
     res: Response
   ): Promise<Response<any, Record<string, any>>> {
     try {
-      this.response.data = await new AuthorBusiness(req.body).detail(
+      this.response.data = await new AuthorBusiness().detail(
         parseInt(req.params.id)
       );
     } catch (error: any) {
@@ -26,7 +26,7 @@ export default class AuthorController implements InterfaceController {
   }
 
   public async index(
-    req: Request,
+    _req: Request,
     res: Response
   ): Promise<Response<any, Record<string, any>>> {
     let responseCreate: ApiResponse<Array<AuthorInterface>> = {
@@ -34,7 +34,7 @@ export default class AuthorController implements InterfaceController {
       message: "Request Successful",
     };
     try {
-      responseCreate.data = await new AuthorBusiness(req.body).index();
+      responseCreate.data = await new AuthorBusiness().index();
     } catch (error: any) {
       responseCreate.statusCode = error[0] ? error[0] : 500;
       responseCreate.message = error[1] ? error[1] : error;
@@ -73,7 +73,7 @@ export default class AuthorController implements InterfaceController {
     res: Response
   ): Promise<Response<any, Record<string, any>>> {
     try {
-      await new AuthorBusiness(req.body).delete(parseInt(req.params.id));
+      await new AuthorBusiness().delete(parseInt(req.params.id));
     } catch (error: any) {
       this.response.statusCode = error[0] ? error[0] : 500;
       this.response.message = error[1] ? error[1] : error;

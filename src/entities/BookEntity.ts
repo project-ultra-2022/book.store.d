@@ -7,11 +7,12 @@ import {
   BaseEntity,
   ManyToOne,
 } from "typeorm";
+import BookInteface from "../interfaces/BookInterface";
 import { AuthorEntity } from "./AuthorEntity";
 import { GenderEntity } from "./GenderEntity";
 
 @Entity("books")
-export class BookEntity extends BaseEntity {
+export class BookEntity extends BaseEntity implements BookInteface {
   @PrimaryGeneratedColumn()
   id: number;
 
