@@ -2,6 +2,8 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import AuthorRouter from "./routes/AuthorRouter";
+import BookRouter from "./routes/BookRouter";
+import GenderRouter from "./routes/GenderRouter";
 
 const app = express();
 
@@ -20,5 +22,7 @@ app.use((_req: any, res: any, next: any) => {
 });
 
 new AuthorRouter(app);
+new BookRouter(app);
+new GenderRouter(app);
 
 export default app;
