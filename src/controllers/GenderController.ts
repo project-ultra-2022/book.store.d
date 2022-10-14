@@ -5,7 +5,7 @@ import GenderInterface from "../interfaces/GenderInterface";
 import ControllerInterface from "../interfaces/ControllerInterface";
 
 export default class GenderController implements ControllerInterface {
-  private response: ApiResponse<ControllerInterface> = {
+  private response: ApiResponse<GenderInterface> = {
     statusCode: 200,
     message: "Request Successful",
   };

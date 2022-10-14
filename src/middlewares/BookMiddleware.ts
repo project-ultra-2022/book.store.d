@@ -23,16 +23,15 @@ export default class BookMiddleware implements MiddlewareInterface {
           .label("The field 'name' is required and only allows letters"),
         year: Joi.string()
           .required()
-          .regex(this.REGEX_STRING)
-          .label("The field 'year' is required and only allows letters"),
+          .label(
+            "The field 'year' is required and only allows the structure year (2000)"
+          ),
         genderId: Joi.string()
           .required()
-          .regex(this.REGEX_STRING)
-          .label("The field 'genderId' is required and only allows letters"),
+          .label("The field 'genderId' is required and only allows numbers"),
         authorId: Joi.string()
           .required()
-          .regex(this.REGEX_STRING)
-          .label("The field 'authorId' is required and only allows letters"),
+          .label("The field 'authorId' is required and only allows numbers"),
       })
       .required();
 
@@ -41,18 +40,15 @@ export default class BookMiddleware implements MiddlewareInterface {
         name: Joi.string()
           .regex(this.REGEX_STRING)
           .label("The field 'name' only allows letters"),
-        year: Joi.string()
-          .required()
-          .regex(this.REGEX_STRING)
-          .label("The field 'year' is required and only allows letters"),
-        genderId: Joi.string()
-          .required()
-          .regex(this.REGEX_STRING)
-          .label("The field 'genderId' is required and only allows letters"),
-        authorId: Joi.string()
-          .required()
-          .regex(this.REGEX_STRING)
-          .label("The field 'authorId' is required and only allows letters"),
+        year: Joi.string().label(
+          "The field 'year' only allows the structure year (2000)"
+        ),
+        genderId: Joi.string().label(
+          "The field 'genderId' only allows numbers"
+        ),
+        authorId: Joi.string().label(
+          "The field 'authorId' only allows numbers"
+        ),
       })
       .required();
   }

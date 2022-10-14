@@ -5,7 +5,7 @@ import BookInterface from "../interfaces/BookInterface";
 import ControllerInterface from "../interfaces/ControllerInterface";
 
 export default class BookController implements ControllerInterface {
-  private response: ApiResponse<ControllerInterface> = {
+  private response: ApiResponse<BookInterface> = {
     statusCode: 200,
     message: "Request Successful",
   };
